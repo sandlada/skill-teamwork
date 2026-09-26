@@ -46,8 +46,9 @@ Example: `@teamwork Add a rate limiter to the public API with tests.`
 
 The skill requires a tool that spawns isolated subagent sessions (e.g. a
 `subagent`, `task`, or `agent` tool). If the host agent lacks one, the skill says
-so and either stops or proceeds solo while keeping the same verification-gate
-discipline.
+so and either stops or proceeds solo — the same workflow and gates, but
+verification degrades to self-review by the session that wrote the code, which
+the skill must disclose to the user before starting.
 
 ## Roles
 
