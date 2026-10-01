@@ -14,16 +14,14 @@ final handoff. You spawn exactly one **Project Orchestrator** subagent
 owns milestones, delegation, and gate sequencing. Neither of you implements
 while subagents are assignable.
 
-## Prerequisite
+## Prerequisite & Orchestration Topology
 
 You need a tool that spawns isolated subagent sessions (e.g. a `subagent`,
-`task`, or `agent` tool). If no such tool exists, either stop or proceed
-solo. Solo mode runs the same workflow — milestones, gates, evidence
-discipline — but with one structural loss you must state to the user up
-front: **the verifier is no longer independent of the author**, so every
-verification gate degrades to self-review by the same session that wrote the
-code. Never silently pretend to run a team, and never present solo
-self-review as independent verification.
+`task`, or `invoke_subagent` tool).
+
+- **Standard Topology (Nested Orchestration)**: If the host environment allows subagents to spawn further subagents (`enable_subagent_tools=true`), Sentinel spawns Orchestrator, which in turn spawns Workers and Verifiers.
+- **Flat Topology (Sentinel-as-Orchestrator)**: If the host environment allows subagents only from the main session (subagents cannot spawn child subagents), the Sentinel carries out Phase 1, obtains user approval, and then directly executes the Orchestrator plan/dispatch sequence from the main session, dispatching Explorer, Workers, Critic, Challenger, and Auditor as direct subagents. This preserves strict independent verification without hitting recursion limits.
+- **Solo Fallback (Zero Subagent Tools)**: If no subagent tool exists, either stop or proceed solo. Solo mode runs the same workflow — milestones, gates, evidence discipline — but with one structural loss you must state to the user up front: **the verifier is no longer independent of the author**, so every verification gate degrades to self-review by the same session that wrote the code. Never silently pretend to run a team, and never present solo self-review as independent verification.
 
 ## Phase 1 — Scope and brief (Sentinel, read `roles/sentinel.md`)
 

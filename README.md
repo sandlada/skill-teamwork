@@ -100,6 +100,8 @@ roles/coding/               # explorer, worker, critic, challenger, auditor
 roles/math/                 # prover, falsifier, verifier
 roles/review/               # reviewer, synthesizer
 roles/success-auditor.md    # final acceptance audit prompt
+scripts/                    # automation helpers: init, report validator, ownership checker
+examples/                   # end-to-end walk-through scenarios
 ```
 
 Runtime artifacts land in the target project's `.teamwork/` directory:
